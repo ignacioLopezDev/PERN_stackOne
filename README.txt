@@ -7,6 +7,8 @@ Dependencies:
         -npm init -y
         -npm i express cors morgan volleyball cookie-parser
         -npm i nodemon -D
+        -npm i dotenv
+        -npm i bcrypt jsonwebtoken
 
     Database:
         -npm i pg

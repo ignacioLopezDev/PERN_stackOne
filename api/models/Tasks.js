@@ -8,6 +8,7 @@ Tasks.init(
         Title:{
             type: S.STRING,
             allowNull: false,
+            unique: true
         },
         Description:{
             type:S.STRING,

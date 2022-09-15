@@ -1,3 +1,4 @@
-const Tasks = require ("./tasks")
+const Tasks = require ("./Tasks")
+const User = require("./User")
 
-module.exports = {Tasks}
+module.exports = {Tasks, User}
