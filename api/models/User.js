@@ -7,6 +7,7 @@ User.init(
   {
     username: {
       type: S.STRING,
+      unique:true,
       allowNull: false,
       validate: {
         len: {
@@ -17,22 +18,23 @@ User.init(
           msg: "username only use words",
         },
       },
-      email: {
-        type: S.STRING,
-        allowNull: false,
-        validate: {
-          isEmail: true,
-        },
+    },
+    email: {
+      type: S.STRING,
+      unique:true,
+      allowNull: false,
+      validate: {
+        isEmail: true,
       },
-      password: {
-        type: S.STRING,
-        allowNull: false,
-      },
+    },
+    password: {
+      type: S.STRING,
+      allowNull: false,
     },
   },
   {
     timestamps: false,
-    sequelize:db,
+    sequelize: db,
     modelName: "User",
   }
 );

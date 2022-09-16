@@ -4,7 +4,7 @@ const  {signIn, signUp} =require("../controllers/authController")
 const authRoutes = express.Router();
 
 
-authRoutes.use("/",signIn)
-authRoutes.use("/signUp",signUp)
+authRoutes.post("/",signIn)
+authRoutes.post("/signUp",signUp)
 
 module.exports = authRoutes

@@ -19,12 +19,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use("/", routes)
+app.use("/", routes);
 
 // error middleware
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(505 || error.status).send({ error: err.message });
+// });
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(505).send({ error: err.message });
+  res.status(505 || error.status).send({ status: "error", error: err.message });
 });
 
 // connect db an start port
