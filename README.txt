@@ -1,5 +1,5 @@
-STACK PERN exercide 
-https://www.youtube.com/watch?v=_zGL_MU29zs&ab_channel=FaztCode
+STACK PERN exercise 
+    https://www.youtube.com/watch?v=_zGL_MU29zs&ab_channel=FaztCode
 
 
 Dependencies:
@@ -16,14 +16,13 @@ Dependencies:
         -npm i sequelize
 
 Estructura:
-
-- api
-    -config
-    -controllers
-    -db
-    -models
-    -routes
-    -server.js
+    - api
+        -config
+        -controllers
+        -db
+        -models
+        -routes
+        -server.js
 
 
 
