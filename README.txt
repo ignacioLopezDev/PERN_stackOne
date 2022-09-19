@@ -10,6 +10,8 @@ Dependencies:
         -npm i dotenv
         -npm i bcrypt jsonwebtoken
 
+        -npx create-react-app client
+
     Database:
         -npm i pg
         -npm i postgres
