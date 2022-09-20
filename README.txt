@@ -11,6 +11,10 @@ Dependencies:
         -npm i bcrypt jsonwebtoken
 
         -npx create-react-app client
+        -npm i react-router-dom
+        -npm install @mui/material @emotion/react @emotion/styled
+        -Roboto Font
+        -Font Icons y npm install @mui/icons-material (importa iconos en formato svg)
 
     Database:
         -npm i pg
@@ -18,6 +22,7 @@ Dependencies:
         -npm i sequelize
 
 Estructura:
+    - .vscode
     - api
         -config
         -controllers
@@ -25,6 +30,10 @@ Estructura:
         -models
         -routes
         -server.js
+    -client
+        -src
+            -components
+
 
 
 
