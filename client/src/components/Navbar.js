@@ -17,12 +17,23 @@ export default function NavBar() {
         <Container>
           <Toolbar>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              <Link to="/" style={{textDecoration:"none", color:"#eee"}}>Pern Stack</Link>
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: "#eee",
+                }}
+              >
+                Pern Stack
+              </Link>
             </Typography>
             <Button
               variant="contained"
               color="primary"
-              onClick={() => navigate("/task/new")}
+              onClick={() => {
+                console.log("...redirecting");
+                navigate("/task/new");
+              }}
             >
               New Task
             </Button>
