@@ -2,28 +2,51 @@ import {
   Button,
   Card,
   CardContent,
+  CircularProgress,
   Grid,
   TextField,
   Typography,
 } from "@mui/material";
-import {useState, useEffect} from "react"
-
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function TaskForm() {
+  // useState Navigate
+  const navigate = useNavigate();
 
-  const [ task , setTask ] = useState({
-    title:"",
-    description:""
-  })
+  const [task, setTask] = useState({
+    Title: "",
+    Description: "",
+  });
+
+
+
+  // useState Loading
+  const [loading, setLoading] = useState(false);
   
-  const handleChange = e =>{
-    setTask({...task, [e.target.name]: e.target.value})
-  }
+  // HandleChange
+  const handleChange = (e) => {
+    setTask({ ...task, [e.target.name]: e.target.value });
+  };
 
-  const handleSubmit = e => {
+  // HandleSubmit
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(task);
-  }
+
+    setLoading(true);
+
+    const res = await fetch("http://localhost:3000/routes/tasks/", {
+      method: "POST",
+      body: JSON.stringify(task),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+
+    setLoading(false);
+
+    navigate("/");
+    console.log(data);
+  };
 
   return (
     <Grid
@@ -40,7 +63,7 @@ export default function TaskForm() {
           <CardContent>
             <form onSubmit={handleSubmit}>
               <TextField
-                name="title"
+                name="Title"
                 onChange={handleChange}
                 variant="filled"
                 label="escribir aqui"
@@ -48,25 +71,29 @@ export default function TaskForm() {
                   display: "block",
                   margin: ".5rem 0",
                 }}
-                InputLabelProps={{ style: { color: "#1e272e" }}}
+                InputLabelProps={{ style: { color: "#1e272e" } }}
                 inputProps={{ style: { color: "green" } }}
               />
               <TextField
-                name="description"
+                name="Description"
                 onChange={handleChange}
                 variant="filled"
-                label="wite your description"
+                label="write your description"
                 multiline
                 rows={4}
                 sx={{
                   display: "block",
                   margin: ".5rem 0",
                 }}
-                InputLabelProps={{ style: { color: "#1e272e" }}}
+                InputLabelProps={{ style: { color: "#1e272e" } }}
                 inputProps={{ style: { color: "green" } }}
               />
-              <Button variant="contained" color="primary" type="submit">
-                Save
+              <Button variant="contained" color="primary" type="submit" disabled={!task.Title || !task.Description} >
+                {loading ? (
+                  <CircularProgress color="inherit" size={24} />
+                ) : (
+                  "SAVE"
+                )}
               </Button>
             </form>
           </CardContent>
