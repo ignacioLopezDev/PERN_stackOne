@@ -42,7 +42,7 @@ const modifyTask = async (req, res, next) => {
 
 // borra un tasks
 const deleteTasks = async (req, res, next) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const check = await Tasks.destroy({ where: { id } });
 
   if (!check) return res.status(404).send("The task does not exist");

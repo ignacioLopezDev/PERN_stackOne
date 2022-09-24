@@ -16,14 +16,22 @@ export default function TaskList() {
     loadTask();
   }, []);
 
-// HandleDelete para eliminar tarea
-const delete = async () => {
-  const res = await fetch("http://localhost:3000/routes/tasks/"),{
-    method: "DELETE"
-  }
-}
+  // Handle Delete
+  const handleDelete = async (id) => {
+    try {
+      // Tienen que eliminarlo desde el backend con un axios
+      const res = await fetch(`http://localhost:3000/routes/tasks/${id}`, {
+        method: "DELETE",
+      });
 
-const handleDelete = (e => {})
+      // Y eliminarlo del mapeo del task con un filter
+      // Filter a[1,2,3,4,5] -> a.filter( x => x !==3) -> [1, 2, 4, 5]
+      setTasks(tasks.filter((task) => task.id !== id));
+
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   return (
     <>
@@ -35,6 +43,7 @@ const handleDelete = (e => {})
             marginBottom: ".7rem",
             backgroundColor: "#1e272e",
           }}
+          key={task.id}
         >
           <CardContent
             style={{
@@ -52,7 +61,7 @@ const handleDelete = (e => {})
             </div>
             <div>
               <Button
-                style={{color:"black"}}
+                style={{ color: "black" }}
                 variant="contained"
                 color="inherit"
                 onClick={() => console.log("eliminando")}
@@ -62,8 +71,8 @@ const handleDelete = (e => {})
               <Button
                 variant="contained"
                 color="warning"
-                style={{marginLeft:".5rem"}}
-                onClick={() => console.log("delete")}
+                style={{ marginLeft: ".5rem" }}
+                onClick={() => handleDelete(task.id)}
               >
                 Delete
               </Button>
