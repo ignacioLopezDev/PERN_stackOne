@@ -12,7 +12,7 @@ const taskRoutes = express.Router();
 // rutas de todas las tareas "/tasks"
 taskRoutes.get("/tasks", showAllTasks);
 taskRoutes.post("/tasks", createTask);
-taskRoutes.put("/tasks", modifyTask);
+taskRoutes.put("/tasks/:id", modifyTask);
 taskRoutes.delete("/tasks/:id", deleteTasks);
 
 // // rutas de una sola tarea "/tasks/:id"

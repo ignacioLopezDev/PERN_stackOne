@@ -24,9 +24,11 @@ const createTask = async (req, res, next) => {
 
 // modifica tasks
 const modifyTask = async (req, res, next) => {
-  const { Description, id } = req.body;
+  const { Title, Description} = req.body;
+  const {id} = req.params
+
   const [affectedRows, result] = await Tasks.update(
-    { Description },
+    { Title, Description },
     { where: { id }, returning: true }
   );
 

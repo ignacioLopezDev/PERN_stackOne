@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 
 export default function TaskList() {
+
+  // UseNavigate
+  const navigate = useNavigate()
+
+  // UseStaste -  Task
   const [tasks, setTasks] = useState([]);
 
-  // cargar tareas, para utilizarlo en el useEffect
+  // LoadData, para utilizarlo en el useEffect
   const loadTask = async () => {
     const res = await fetch("http://localhost:3000/routes/tasks");
     const data = await res.json();
     setTasks(data);
   };
 
-  // useEffect
+  // useEffect loadData
   useEffect(() => {
     loadTask();
   }, []);
@@ -20,7 +26,7 @@ export default function TaskList() {
   const handleDelete = async (id) => {
     try {
       // Tienen que eliminarlo desde el backend con un axios
-      const res = await fetch(`http://localhost:3000/routes/tasks/${id}`, {
+      await fetch(`http://localhost:3000/routes/tasks/${id}`, {
         method: "DELETE",
       });
 
@@ -64,7 +70,7 @@ export default function TaskList() {
                 style={{ color: "black" }}
                 variant="contained"
                 color="inherit"
-                onClick={() => console.log("eliminando")}
+                onClick={() => navigate(`/task/${task.id}/edit`)}
               >
                 Edit
               </Button>
