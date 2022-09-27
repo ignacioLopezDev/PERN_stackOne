@@ -6,10 +6,10 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
-  const navigate = useNavigate();
+
 
   return (
     <Box sx={{ flexGrow: 12 }}>
@@ -18,7 +18,6 @@ export default function NavBar() {
           <Toolbar>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               <Link
-                to="/"
                 style={{
                   textDecoration: "none",
                   color: "#eee",
@@ -30,10 +29,6 @@ export default function NavBar() {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                console.log("...redirecting");
-                navigate("/task/new");
-              }}
             >
               New Task
             </Button>
