@@ -6,10 +6,12 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function NavBar() {
 
+  const navigate = useNavigate()
 
   return (
     <Box sx={{ flexGrow: 12 }}>
@@ -22,6 +24,7 @@ export default function NavBar() {
                   textDecoration: "none",
                   color: "#eee",
                 }}
+                Link to={"/"}
               >
                 Pern Stack
               </Link>
@@ -29,6 +32,7 @@ export default function NavBar() {
             <Button
               variant="contained"
               color="primary"
+              onClick={() => navigate("/task/new")}
             >
               New Task
             </Button>
