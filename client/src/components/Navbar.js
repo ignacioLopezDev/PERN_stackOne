@@ -24,7 +24,7 @@ export default function NavBar() {
                   textDecoration: "none",
                   color: "#eee",
                 }}
-                Link to={"/"}
+                to={"/"}
               >
                 Pern Stack
               </Link>

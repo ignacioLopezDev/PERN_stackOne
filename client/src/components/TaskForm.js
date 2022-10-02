@@ -7,50 +7,70 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-
-
-
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function TaskForm() {
+  // useParams
+  const params = useParams();
 
-// UseNavigate
-const navigate = useNavigate()
+  // navigate
+  const navigate = useNavigate();
 
-// useState - Task
-const [tasks, setTasks] = useState({
-  Title:"",
-  Description:""
-})
+  // useState - Loading
+  const [loading, setLoading] = useState(false);
 
-// useState - Loading
-const [loading, setLoading] = useState(false)
+  // useState - Editing
+  const [editing, setEditing] = useState(false);
 
-// HandleChange
-const handleChange = (e) => {
-  setTasks({...tasks,[e.target.name]: e.target.value})
-  console.log(tasks)
-}
+  // LoadTask
+  const loadTask = async (id) => {
+    const res = await fetch(`http://localhost:3000/routes/tasks/${id}`);
+    const data = await res.json();
+    setTasks({ Title: data.Title, Description: data.Description });
+    setEditing(true);
+  };
 
-// handleSubmit
+  // useEffect - Si edit o New
+  useEffect(() => {
+    if (params.id) {
+      loadTask(params.id);
+    }
+  }, [params.id]);
 
-const handleSubmit = async (e) => {
-  e.preventDefault()
-  setLoading(true)
+  // useState - Tasks
+  const [tasks, setTasks] = useState({
+    Title: "",
+    Description: "",
+  });
 
-  const res = await fetch("http://localhost:3000/routes/tasks/",{
-    method:"POST",
-    body: JSON.stringify(tasks), 
-    headers: {"Content-Type":"application/json"}
-  })
+  // HandleChange
+  const HandleChange = (e) => {
+    setTasks({ ...tasks, [e.target.name]: e.target.value });
+  };
 
-  setLoading(false)
-  navigate("/")
+  // handleSubmit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  
-} 
+    if (editing) {
+      await fetch(`http://localhost:3000/routes/tasks/${params.id}`, {
+        method: "PUT",
+        body: JSON.stringify(tasks),
+        headers: { "Content-Type": "application/json" },
+      });
+    } else {
+      await fetch("http://localhost:3000/routes/tasks/", {
+        method: "POST",
+        body: JSON.stringify(tasks),
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    setLoading(false);
+    navigate("/");
+  };
 
   return (
     <Grid
@@ -61,16 +81,17 @@ const handleSubmit = async (e) => {
     >
       <Grid item sx={3} style={{ backgroundColor: "#1e272e", padding: "1rem" }}>
         <Card sx={{ mt: 5 }}>
-          <Typography variant="h5" textAlign="center" color="#1e272e">
-
-          </Typography>
+          <Typography
+            variant="h5"
+            textAlign="center"
+            color="#1e272e"
+          ></Typography>
           <CardContent>
-            <form
-            onSubmit={handleSubmit}>
+            <form>
               <TextField
                 name="Title"
                 value={tasks.Title}
-                onChange={handleChange}
+                onChange={HandleChange}
                 variant="filled"
                 label="escribir aqui"
                 sx={{
@@ -83,7 +104,7 @@ const handleSubmit = async (e) => {
               <TextField
                 name="Description"
                 value={tasks.Description}
-                onChange={handleChange}
+                onChange={HandleChange}
                 variant="filled"
                 label="write your description"
                 multiline
@@ -96,17 +117,16 @@ const handleSubmit = async (e) => {
                 inputProps={{ style: { color: "green" } }}
               />
               <Button
+                onClick={handleSubmit}
                 variant="contained"
                 color="primary"
                 type="submit"
-                >
-
+              >
                 {loading ? (
                   <CircularProgress color="inherit" size={24} />
-                  ) : (
-                    "SAVE"
-                    )}
-                    
+                ) : (
+                  "SAVE"
+                )}
               </Button>
             </form>
           </CardContent>
